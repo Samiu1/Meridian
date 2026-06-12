@@ -138,25 +138,25 @@ The PM Agent is an agentic SaaS designed to help Product Managers transform raw 
 ### 2. Architecture Overview
 
 ```mermaid
-%%{init: {'theme': 'dark'}}%%
+%%{init: {"theme":"dark"}}%%
 graph TD
-    User([User / Browser])
-    Next[Next.js App Router (web/)]
-    API[Hono Server (src/api/)]
-    AgentLoop[Agent Loop (src/agent/run-agent.ts)]
-    Tools[MCP PM Tools (src/agent/pm-tools.ts)]
-    JSONL[(Session JSONL)]
-    Claude[Claude Sonnet 4.6 API]
-    External[External Trackers (Jira/Slack)]
+    User["User / Browser"]
+    Next["Next.js App Router (web/)"]
+    API["Hono Server (src/api/)"]
+    AgentLoop["Agent Loop (src/agent/run-agent.ts)"]
+    Tools["MCP PM Tools (src/agent/pm-tools.ts)"]
+    JSONL[("Session JSONL")]
+    Claude["Claude Sonnet 4.6 API"]
+    External["External Trackers (Jira/Slack)"]
 
-    User -->|HTTP/SSE| Next
-    Next -->|POST /sessions| API
-    API -->|runAgent()| AgentLoop
-    AgentLoop -->|query()| Claude
-    AgentLoop -->|canUseTool()| Tools
-    AgentLoop -->|appendLine()| JSONL
-    Tools -->|Human Approval Gate| User
-    Tools -->|createTicket/postUpdate| External
+    User -->|"HTTP/SSE"| Next
+    Next -->|"POST /sessions"| API
+    API -->|"runAgent()"| AgentLoop
+    AgentLoop -->|"query()"| Claude
+    AgentLoop -->|"canUseTool()"| Tools
+    AgentLoop -->|"appendLine()"| JSONL
+    Tools -->|"Human Approval Gate"| User
+    Tools -->|"createTicket / postUpdate"| External
 ```
 *(Citations: `README.md:107`, `src/agent/run-agent.ts:111`, `src/api/server.ts:45`)*
 
