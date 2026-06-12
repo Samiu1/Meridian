@@ -34,3 +34,6 @@ yarn-error.log*
 # Design System Reference
 design-system/
 
+# Local Project files and workspaces
+CLAUDE.md
+workspaces/
