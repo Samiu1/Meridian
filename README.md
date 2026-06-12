@@ -1,4 +1,4 @@
-# PM Agent
+# Meridian
 
 An agent SaaS for product managers, built on the Claude Agent SDK (`@anthropic-ai/claude-agent-sdk`). It features a minimal core (Read / Write / Search / Act), skill-based extension, transparent JSONL session logging, and human approval on every external write.
 
@@ -59,12 +59,12 @@ cp .env.example .env
 
 Configure the following variables in `.env`:
 
-| Variable | Description | Example |
-| -------- | ----------- | ------- |
-| `ANTHROPIC_API_KEY` | Required for Claude Agent SDK | `sk-ant-api03-...` |
-| `PM_AGENT_MODEL` | Default model used | `claude-sonnet-4-6` |
-| `PM_AGENT_MAX_TURNS` | Max agent loop turns | `30` |
-| `PORT` | API server port | `8787` |
+| Variable             | Description                   | Example             |
+| -------------------- | ----------------------------- | ------------------- |
+| `ANTHROPIC_API_KEY`  | Required for Claude Agent SDK | `sk-ant-api03-...`  |
+| `PM_AGENT_MODEL`     | Default model used            | `claude-sonnet-4-6` |
+| `PM_AGENT_MAX_TURNS` | Max agent loop turns          | `30`                |
+| `PORT`               | API server port               | `8787`              |
 
 ### 4. Start Development Servers
 
@@ -131,7 +131,8 @@ Log lines contain `user`, `assistant`, `tool_call`, `tool_result`, or `meta`. En
 ### 1. System Philosophy & Design Principles
 
 The PM Agent is an agentic SaaS designed to help Product Managers transform raw inputs into structured artifacts. Its design relies on a few core invariants:
-- **Hermetic Transparency:** Every session is fully auditable. The context window is kept minimal (`<1000` tokens core prompt), and every event is written as a JSONL line *before* streaming to the client (`src/agent/run-agent.ts:73`).
+
+- **Hermetic Transparency:** Every session is fully auditable. The context window is kept minimal (`<1000` tokens core prompt), and every event is written as a JSONL line _before_ streaming to the client (`src/agent/run-agent.ts:73`).
 - **Human-in-the-Loop (HITL) Safety:** External writes or destructive actions are modeled as MCP tools but strictly blocked on human approval. The agent loop pauses via an API-gated Promise before taking action (`src/agent/run-agent.ts:102`).
 - **Separation of State:** Chat state is never implicitly stored in memory. The source of truth is the JSONL append-only log in the `/sessions` directory.
 
@@ -158,7 +159,8 @@ graph TD
     Tools -->|"Human Approval Gate"| User
     Tools -->|"createTicket / postUpdate"| External
 ```
-*(Citations: `README.md:107`, `src/agent/run-agent.ts:111`, `src/api/server.ts:45`)*
+
+_(Citations: `README.md:107`, `src/agent/run-agent.ts:111`, `src/api/server.ts:45`)_
 
 ### 3. Key Abstractions & Interfaces
 
@@ -202,7 +204,8 @@ sequenceDiagram
     SDK-->>Hono: Stream response text
     Hono-->>Web: SSE text
 ```
-*(Data Flow traced from: `src/api/server.ts:45-73`, `src/agent/run-agent.ts:102`)*
+
+_(Data Flow traced from: `src/api/server.ts:45-73`, `src/agent/run-agent.ts:102`)_
 
 ### 7. Failure Modes & Error Handling
 
@@ -221,7 +224,8 @@ sequenceDiagram
 
 ### 10. Testing Strategy
 
-Evaluations are used to ensure agent capability and safety, rather than traditional granular unit tests. 
+Evaluations are used to ensure agent capability and safety, rather than traditional granular unit tests.
+
 - Run `npm run evals` to trigger the evaluation harness (`README.md:143`).
 
 ### 11. Operational Concerns
@@ -240,28 +244,36 @@ Evaluations are used to ensure agent capability and safety, rather than traditio
 <summary><strong>Zero-to-Hero Contributor Guide</strong></summary>
 
 ### 1. What This Project Does
+
 The PM Agent is an agentic SaaS built specifically for Product Managers. It helps transform raw product inputs (like transcripts, user metrics, and docs) into polished PRDs, tickets, and release notes, incorporating human-in-the-loop safety before executing external actions.
 
 ### 2. Prerequisites
+
 - Node.js v20+
 - `npm` or `pnpm`
 - Anthropic API Key (Claude)
 
 ### 3. Environment Setup
+
 1. **Clone & Install**
+
    ```bash
    git clone <repo_url> Meridian
    cd Meridian
    npm install
    npm --prefix web install
    ```
+
 2. **Environment Configuration**
+
    ```bash
    cp .env.example .env
    ```
+
    Add `ANTHROPIC_API_KEY=sk-ant-api03-...` to your `.env` file.
 
 3. **Start the Servers**
+
    ```bash
    # Terminal 1: Starts the API server (Hono) on :8787
    npm run dev
@@ -269,9 +281,11 @@ The PM Agent is an agentic SaaS built specifically for Product Managers. It help
    # Terminal 2: Starts the Next.js Web server on :3000
    npm --prefix web run dev
    ```
+
    Expected output in Terminal 1: `pm-agent api on :8787` (`src/api/server.ts:99`).
 
 ### 4. Project Structure
+
 ```text
 ├── src/agent/        # Core agent loop and MCP tools (e.g. run-agent.ts)
 ├── src/api/          # Hono backend API, SSE endpoints (server.ts)
@@ -282,9 +296,11 @@ The PM Agent is an agentic SaaS built specifically for Product Managers. It help
 ├── workspaces/       # Project-specific contextual knowledge (CONTEXT.md)
 └── design-system/    # Shared CSS tokens and Japandi UI components
 ```
-*(Citation: `README.md:89-103`)*
+
+_(Citation: `README.md:89-103`)_
 
 ### 5. Your First Task: Adding a New Skill
+
 1. Create a new file in `skills/new-skill.md`.
 2. Add a system prompt fragment mapping out what the skill does.
 3. The `detectSkill` function will automatically pick it up and inject it into the `runAgent()` context loop based on user prompts.
@@ -294,30 +310,37 @@ The PM Agent is an agentic SaaS built specifically for Product Managers. It help
 ```mermaid
 %%{init: {'theme': 'dark'}}%%
 graph LR
-    A[Checkout Feature Branch] --> B[Write Code]
-    B --> C[npm run typecheck]
-    C --> D[Test via Browser & npm run evals]
-    D --> E[Submit PR]
+    A["Checkout Feature Branch"] --> B["Write Code"]
+    B --> C["npm run typecheck"]
+    C --> D["Test via Browser & npm run evals"]
+    D --> E["Submit PR"]
 ```
 
 ### 7. Running Tests
+
 We rely heavily on LLM evaluation harnesses for agent testing:
+
 ```bash
 npm run evals
 ```
-*(Citation: `README.md:143`)*
+
+_(Citation: `README.md:143`)_
 
 ### 8. Debugging Guide
+
 - **Port In Use (8787 or 3000):** If `npm run dev` fails with `EADDRINUSE`, kill the existing node process or run Next.js on another port: `npm --prefix web run dev -- -p 3001` (`README.md:180`).
 - **Agent Doesn't Respond:** Double check your `.env` for `ANTHROPIC_API_KEY`. If the session hangs after a tool call, verify if there is an unapproved action in the frontend UI.
 
 ### 9. Key Concepts
+
 - **Human-in-the-Loop (HITL):** Before writing to an external tool (like Jira), the agent's SDK pauses. We hold the promise open in a `pendingApprovals` Map until the user explicitly approves (`src/agent/run-agent.ts:111`).
 - **JSONL Session Store:** We don't use PostgreSQL. Every session is an append-only `.jsonl` file in the `/sessions` folder (`src/agent/session-store.ts`).
 
 ### 10. Code Patterns
+
 **Adding a New Tool:**
 Add tools in `src/agent/pm-tools.ts`. To ensure it requires human approval, prefix the tool name with `mcp__pm-tools__act_`. The `canUseTool` middleware in `run-agent.ts` automatically blocks tools matching this prefix.
+
 ```typescript
 const myNewActTool = tool(
   "act_do_something",
@@ -328,18 +351,22 @@ const myNewActTool = tool(
 ```
 
 ### 11. Common Pitfalls
-- **Adding logic without `await`ing appending to the log:** `appendLine` must complete *before* streaming text back to the client (`src/agent/run-agent.ts:73`).
+
+- **Adding logic without `await`ing appending to the log:** `appendLine` must complete _before_ streaming text back to the client (`src/agent/run-agent.ts:73`).
 - **Modifying Core Prompt instead of using Skills:** Keep `CORE_SYSTEM_PROMPT` tiny. Put feature-specific knowledge in `/skills` and project-specific knowledge in `/workspaces/*/CONTEXT.md` (`src/agent/run-agent.ts:24`).
 
 ### 12. Where to Get Help
+
 Check out the `README.md` or jump into the issues page on the repository. The backend uses the official `@anthropic-ai/claude-agent-sdk`, so the Anthropic SDK docs are your friend.
 
 ### 13. Glossary
+
 - **MCP (Model Context Protocol):** A standard to expose tools to the agent.
 - **SSE (Server-Sent Events):** The streaming protocol we use over HTTP to stream the Claude output to the UI in real-time (`src/api/server.ts:45`).
 - **Japandi UI:** Our bespoke soft-neumorphic design system located in `/design-system`.
 
 ### 14. Quick Reference Card
+
 - **Start Backend:** `npm run dev`
 - **Start Frontend:** `npm --prefix web run dev`
 - **Typecheck:** `npm run typecheck` & `npm --prefix web run typecheck`
@@ -349,14 +376,14 @@ Check out the `README.md` or jump into the issues page on the repository. The ba
 
 ## Available Scripts
 
-| Command | Description |
-| ------- | ----------- |
-| `npm run dev` | Start API server with watch (`tsx`) |
-| `npm run start` | Start API server |
-| `npm run typecheck` | Run TypeScript compiler without emitting files |
-| `npm run evals` | Run evaluation harness |
-| `npm --prefix web run dev` | Start Next.js frontend dev server |
-| `npm --prefix web run typecheck` | Typecheck frontend |
+| Command                          | Description                                    |
+| -------------------------------- | ---------------------------------------------- |
+| `npm run dev`                    | Start API server with watch (`tsx`)            |
+| `npm run start`                  | Start API server                               |
+| `npm run typecheck`              | Run TypeScript compiler without emitting files |
+| `npm run evals`                  | Run evaluation harness                         |
+| `npm --prefix web run dev`       | Start Next.js frontend dev server              |
+| `npm --prefix web run typecheck` | Typecheck frontend                             |
 
 ## Testing
 
@@ -400,6 +427,7 @@ The `/web` directory can be deployed directly to Vercel or Netlify.
 **Error:** Port 3000 is in use.
 
 **Solution:** Next.js will ask to use another port, or you can force it:
+
 ```bash
 npm --prefix web run dev -- -p 3001
 ```
