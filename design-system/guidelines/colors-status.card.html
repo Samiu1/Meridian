@@ -1,0 +1,40 @@
+<!-- @dsCard group="Colors" viewport="700x170" name="Status — Earth-toned semantics" subtitle="Muted, AA-tuned status colours with soft paper backings" -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<link rel="stylesheet" href="../styles.css" />
+<style>
+  body { margin: 0; padding: 28px 32px; }
+  .row { display: flex; gap: 16px; }
+  .card { flex: 1; border-radius: var(--radius-md); padding: 16px 18px; }
+  .dot { width: 12px; height: 12px; border-radius: 50%; margin-bottom: 12px; }
+  .name { font-size: 12px; font-weight: 900; text-transform: uppercase; letter-spacing: .18em; }
+  .hex { font-family: var(--font-mono); font-size: 10px; color: var(--text-muted); margin-top: 4px; }
+</style>
+</head>
+<body>
+  <div class="row">
+    <div class="card" style="background: var(--status-success-soft);">
+      <div class="dot" style="background: var(--status-success);"></div>
+      <div class="name" style="color: var(--status-success);">Success</div>
+      <div class="hex">#5D6B3C · moss</div>
+    </div>
+    <div class="card" style="background: var(--status-warning-soft);">
+      <div class="dot" style="background: var(--status-warning);"></div>
+      <div class="name" style="color: var(--status-warning);">Warning</div>
+      <div class="hex">#94683A · amber clay</div>
+    </div>
+    <div class="card" style="background: var(--status-danger-soft);">
+      <div class="dot" style="background: var(--status-danger);"></div>
+      <div class="name" style="color: var(--status-danger);">Danger</div>
+      <div class="hex">#8E4232 · terracotta</div>
+    </div>
+    <div class="card" style="background: var(--status-info-soft);">
+      <div class="dot" style="background: var(--status-info);"></div>
+      <div class="name" style="color: var(--status-info);">Info</div>
+      <div class="hex">#5B6B7A · slate</div>
+    </div>
+  </div>
+</body>
+</html>

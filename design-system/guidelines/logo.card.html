@@ -1,0 +1,38 @@
+<!-- @dsCard group="Brand" viewport="700x220" name="Logo & Wordmark" subtitle="The clay heart-signal mark with the italic Health·Signal wordmark" -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<link rel="stylesheet" href="../styles.css" />
+<style>
+  body { margin: 0; padding: 32px; font-family: var(--font-sans); display: flex; align-items: center; gap: 44px; }
+  .lockup { display: flex; align-items: center; gap: 16px; }
+  .mark { width: 76px; height: 76px; display: flex; align-items: center; justify-content: center; }
+  .mark img { width: 100%; height: 100%; object-fit: contain; }
+  .word { font-family: var(--font-serif); font-weight: 900; font-style: italic; font-size: 38px; letter-spacing: -0.01em; color: var(--text-primary); }
+  .word .sig { background-image: linear-gradient(100deg, var(--color-primary), var(--color-secondary)); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; }
+  .divider { width: 1px; height: 120px; background: var(--border-soft); }
+  .on-clay { background: var(--taupe-500); border-radius: var(--radius-xl); padding: 22px 26px; display: flex; align-items: center; gap: 12px; }
+  .on-clay .mark { width: 54px; height: 54px; }
+  .on-clay .word { font-size: 26px; color: var(--paper-0); }
+  .cap { font-size: 9px; font-weight: 900; letter-spacing: .25em; text-transform: uppercase; color: var(--text-muted); margin-top: 14px; }
+</style>
+</head>
+<body>
+  <div>
+    <div class="lockup">
+      <div class="mark"><img src="../assets/logo.png" alt="Health Signal mark" /></div>
+      <div class="word">Health<span class="sig">Signal</span></div>
+    </div>
+    <div class="cap">Primary lockup</div>
+  </div>
+  <div class="divider"></div>
+  <div>
+    <div class="on-clay">
+      <div class="mark"><img src="../assets/logo.png" alt="Health Signal mark" /></div>
+      <div class="word">Health<span style="color: var(--clay-300);">Signal</span></div>
+    </div>
+    <div class="cap">On taupe surface</div>
+  </div>
+</body>
+</html>

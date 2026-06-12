@@ -1,0 +1,93 @@
+/* =========================================================================
+   Health Signal — Color Tokens
+   A warm Japandi palette: paper neutrals, clay copper, deep taupe, sage.
+   Base values first, semantic aliases below. All tuned on a #F8F5F2 paper.
+   ========================================================================= */
+
+:root {
+  /* ---- Paper neutrals (warm, clay-tinted greys) -------------------------- */
+  --paper-0:   #FCFAF8;  /* near-white — the neumorphic light source        */
+  --paper-50:  #F8F5F2;  /* canvas / surface — the default ground           */
+  --paper-100: #F1ECE7;
+  --paper-200: #E6DED7;
+  --paper-300: #D7CCC2;
+  --paper-400: #BFB1A4;
+
+  /* ---- Ink (sumi text greys, warm-leaning) ------------------------------- */
+  --ink-400: #8A8178;
+  --ink-500: #6E655C;
+  --ink-600: #595959;  /* muted body — darkened for AA contrast            */
+  --ink-700: #4A433C;
+  --ink-800: #2D2926;  /* primary text — warm sumi ink                     */
+  --ink-900: #1F1B18;
+
+  /* ---- Clay / Copper (primary) ------------------------------------------- */
+  --clay-100: #EFE2D8;
+  --clay-200: #E0C9B9;
+  --clay-300: #CFA98F;
+  --clay-400: #C2987C;
+  --clay-500: #B89076;  /* PRIMARY — copper clay                            */
+  --clay-600: #A37A60;
+  --clay-700: #87624B;
+  --clay-rgb: 184, 144, 118; /* @kind other */
+
+  /* ---- Taupe / Deep Clay (secondary) ------------------------------------- */
+  --taupe-200: #C9BCB0;
+  --taupe-300: #A8978A;
+  --taupe-400: #88766A;
+  --taupe-500: #6D5D50;  /* SECONDARY — deep clay taupe                     */
+  --taupe-600: #574A3F;
+  --taupe-rgb: 109, 93, 80; /* @kind other */
+
+  /* ---- Sage (accent — botanical green) ----------------------------------- */
+  --sage-200: #C9D2B3;
+  --sage-300: #AEBB8C;
+  --sage-400: #9AA871;
+  --sage-500: #8A9A5B;
+  --sage-600: #6F7C49;  /* ACCENT — sage green (darkened for contrast)      */
+  --sage-700: #556334;
+  --sage-rgb: 138, 154, 91; /* @kind other */
+
+  /* ---- Status (muted, AA-tuned earth tones) ------------------------------ */
+  --status-success: #5D6B3C;  /* moss      */
+  --status-danger:  #8E4232;  /* terracotta*/
+  --status-warning: #94683A;  /* amber clay*/
+  --status-info:    #5B6B7A;  /* slate blue*/
+  --status-success-soft: #EAEDDF;
+  --status-danger-soft:  #F2E1DB;
+  --status-warning-soft: #F2E7D9;
+  --status-info-soft:    #E2E7EB;
+
+  /* ===== Semantic aliases ================================================= */
+
+  /* Surfaces & ground */
+  --color-background:    var(--paper-50);
+  --surface-base:        var(--paper-50);
+  --surface-raised:      var(--paper-50);   /* neumorphism = same hue, shadow-defined */
+  --surface-sunken:      var(--paper-100);
+  --surface-overlay:     var(--paper-0);
+
+  /* Text */
+  --text-primary:   var(--ink-800);
+  --text-secondary: var(--taupe-500);
+  --text-muted:     var(--ink-600);
+  --text-on-clay:   var(--paper-0);
+  --text-inverse:   var(--paper-0);
+
+  /* Brand roles */
+  --color-primary:   var(--clay-700);
+  --color-secondary: var(--taupe-500);
+  --color-accent:    var(--sage-600);
+
+  /* Lines & borders (clay at low opacity = the signature hairline) */
+  --border-hairline: rgba(184, 144, 118, 0.15);
+  --border-soft:     rgba(109, 93, 80, 0.12);
+  --border-strong:   rgba(109, 93, 80, 0.24);
+
+  /* Neumorphic shadow stops (referenced by elevation.css) */
+  --neu-light: #FCFAF8;                  /* upper-left highlight             */
+  --neu-dark:  rgba(109, 93, 80, 0.16);  /* lower-right shadow               */
+
+  /* Focus ring */
+  --focus-ring: var(--clay-700);
+}

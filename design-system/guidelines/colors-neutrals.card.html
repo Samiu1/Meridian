@@ -1,0 +1,35 @@
+<!-- @dsCard group="Colors" viewport="700x210" name="Paper & Ink — Neutrals" subtitle="Warm paper grounds and sumi-ink text, the calm Japandi base" -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<link rel="stylesheet" href="../styles.css" />
+<style>
+  body { margin: 0; padding: 28px 32px; }
+  .label { font-size: 10px; font-weight: 900; text-transform: uppercase; letter-spacing: .3em; color: var(--text-secondary); margin: 0 0 10px; }
+  .row { display: flex; gap: 12px; margin-bottom: 18px; }
+  .sw { flex: 1; }
+  .chip { height: 52px; border-radius: var(--radius-sm); box-shadow: inset 0 0 0 1px var(--border-soft); }
+  .name { font-size: 10px; font-weight: 700; color: var(--text-primary); margin-top: 7px; }
+  .hex { font-family: var(--font-mono); font-size: 9px; color: var(--text-muted); text-transform: uppercase; }
+</style>
+</head>
+<body>
+  <p class="label">Paper</p>
+  <div class="row">
+    <div class="sw"><div class="chip" style="background: var(--paper-0);"></div><div class="name">Paper 0</div><div class="hex">#FCFAF8</div></div>
+    <div class="sw"><div class="chip" style="background: var(--paper-50);"></div><div class="name">Paper 50</div><div class="hex">#F8F5F2</div></div>
+    <div class="sw"><div class="chip" style="background: var(--paper-100);"></div><div class="name">Paper 100</div><div class="hex">#F1ECE7</div></div>
+    <div class="sw"><div class="chip" style="background: var(--paper-200);"></div><div class="name">Paper 200</div><div class="hex">#E6DED7</div></div>
+    <div class="sw"><div class="chip" style="background: var(--paper-300);"></div><div class="name">Paper 300</div><div class="hex">#D7CCC2</div></div>
+  </div>
+  <p class="label">Ink</p>
+  <div class="row" style="margin-bottom: 0;">
+    <div class="sw"><div class="chip" style="background: var(--ink-400);"></div><div class="name">Ink 400</div><div class="hex">#8A8178</div></div>
+    <div class="sw"><div class="chip" style="background: var(--ink-600);"></div><div class="name">Ink 600 · Muted</div><div class="hex">#595959</div></div>
+    <div class="sw"><div class="chip" style="background: var(--ink-700);"></div><div class="name">Ink 700</div><div class="hex">#4A433C</div></div>
+    <div class="sw"><div class="chip" style="background: var(--ink-800);"></div><div class="name">Ink 800 · Text</div><div class="hex">#2D2926</div></div>
+    <div class="sw"><div class="chip" style="background: var(--ink-900);"></div><div class="name">Ink 900</div><div class="hex">#1F1B18</div></div>
+  </div>
+</body>
+</html>

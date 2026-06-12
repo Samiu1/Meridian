@@ -1,0 +1,43 @@
+/* =========================================================================
+   Health Signal — Spacing, Radius & Layout Tokens
+   Japandi favours generous negative space and very soft, pillow-like radii.
+   The dashboard uses oversized radii (30–60px) on its big "pebble" cards.
+   ========================================================================= */
+
+:root {
+  /* ---- Spacing scale (4px base grid) ------------------------------------ */
+  --space-1:  0.25rem;  /* 4px   */
+  --space-2:  0.5rem;   /* 8px   */
+  --space-3:  0.75rem;  /* 12px  */
+  --space-4:  1rem;     /* 16px  */
+  --space-5:  1.5rem;   /* 24px  */
+  --space-6:  2rem;     /* 32px  */
+  --space-7:  2.5rem;   /* 40px  */
+  --space-8:  3rem;     /* 48px  */
+  --space-10: 4rem;     /* 64px  */
+  --space-12: 6rem;     /* 96px  */
+
+  /* ---- Radii — the soft "pebble" language ------------------------------- */
+  --radius-xs:   8px;
+  --radius-sm:   12px;
+  --radius-md:   16px;   /* small chips, inputs                            */
+  --radius-lg:   24px;   /* buttons, tiles                                 */
+  --radius-xl:   30px;   /* popovers, expert cards                         */
+  --radius-2xl:  40px;   /* metric tiles                                   */
+  --radius-3xl:  50px;   /* large section cards                            */
+  --radius-4xl:  60px;   /* hero score card                                */
+  --radius-pill: 9999px; /* status pills, floating nav                     */
+
+  /* ---- Layout ----------------------------------------------------------- */
+  --container-max: 80rem;  /* 1280px — max-w-7xl                           */
+  --gutter:        2rem;   /* page horizontal padding                      */
+  --section-gap:   3rem;   /* vertical rhythm between sections             */
+
+  /* ---- Motion ----------------------------------------------------------- */
+  --ease-japandi: cubic-bezier(0.16, 1, 0.3, 1); /* @kind other */ /* calm, settled ease-out */
+  --ease-out:     cubic-bezier(0.0, 0, 0.2, 1); /* @kind other */
+  --duration-fast:   0.2s; /* @kind other */
+  --duration-normal: 0.5s; /* @kind other */
+  --duration-slow:   0.7s; /* @kind other */
+  --duration-reveal: 1s;   /* @kind other */ /* hero entrance reveals */
+}

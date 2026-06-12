@@ -1,0 +1,103 @@
+<!-- @dsCard group="Components" viewport="700x540" name="Core — Buttons, Inputs, Badges, Tabs" subtitle="Neumorphic primitives: Button, IconButton, Badge, Input, Card, Tabs" -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<link rel="stylesheet" href="../../styles.css" />
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/lucide@0.460.0/dist/umd/lucide.min.js"></script>
+<script src="../../_ds_bundle.js"></script>
+<style>
+  body { margin: 0; padding: 30px 34px; font-family: var(--font-sans); }
+  .group { margin-bottom: 26px; }
+  .glabel { font-size: 9px; font-weight: 900; text-transform: uppercase; letter-spacing: .3em; color: var(--text-muted); margin: 0 0 14px; }
+  .rowf { display: flex; flex-wrap: wrap; align-items: center; gap: 14px; }
+  i[data-lucide] { width: 100%; height: 100%; }
+</style>
+</head>
+<body>
+  <div id="root"></div>
+  <script type="text/babel">
+    const { Button, IconButton, Badge, Input, Card, Tabs } = window.HealthSignalDesignSystem_f0a9a2;
+    const I = (n) => <i data-lucide={n}></i>;
+
+    function Demo() {
+      const [tab, setTab] = React.useState("overview");
+      return (
+        <div>
+          <div className="group">
+            <p className="glabel">Buttons</p>
+            <div className="rowf">
+              <Button variant="primary" iconLeft={I("activity")}>Connect Garmin</Button>
+              <Button variant="secondary">Sync Data</Button>
+              <Button variant="sage" iconLeft={I("sparkles")}>Insights</Button>
+              <Button variant="solid">Verify Code</Button>
+              <Button variant="ghost">Cancel</Button>
+              <Button variant="primary" disabled>Disabled</Button>
+            </div>
+          </div>
+
+          <div className="group">
+            <p className="glabel">Sizes &amp; Icon Buttons</p>
+            <div className="rowf">
+              <Button size="sm" variant="secondary">Small</Button>
+              <Button size="md" variant="secondary">Medium</Button>
+              <Button size="lg" variant="secondary">Large</Button>
+              <IconButton ariaLabel="Settings" icon={I("settings")} />
+              <IconButton ariaLabel="Sync" icon={I("refresh-cw")} variant="primary" />
+              <IconButton ariaLabel="Message" icon={I("message-square")} shape="circle" />
+              <IconButton ariaLabel="Active" icon={I("layout-dashboard")} active variant="primary" />
+            </div>
+          </div>
+
+          <div className="group">
+            <p className="glabel">Badges</p>
+            <div className="rowf">
+              <Badge look="neu" tone="primary" dot pulse>Deep Synthesis Active</Badge>
+              <Badge tone="success" dot>Optimal</Badge>
+              <Badge tone="warning" dot>Elevated</Badge>
+              <Badge tone="danger" dot>Strained</Badge>
+              <Badge tone="sage">Sage</Badge>
+              <Badge tone="neutral">Demo Mode</Badge>
+            </div>
+          </div>
+
+          <div className="group">
+            <p className="glabel">Inputs</p>
+            <div className="rowf">
+              <Input icon={I("mail")} placeholder="Garmin Email" style={{ width: 220 }} />
+              <Input icon={I("lock")} type="password" placeholder="Password" style={{ width: 180 }} />
+              <Input placeholder="MFA Code" align="center" style={{ width: 150 }} />
+            </div>
+          </div>
+
+          <div className="group" style={{ marginBottom: 0 }}>
+            <p className="glabel">Tabs &amp; Card</p>
+            <div className="rowf">
+              <Tabs
+                value={tab}
+                onChange={setTab}
+                items={[
+                  { value: "overview", label: "Home", icon: I("layout-dashboard") },
+                  { value: "analysis", label: "Analysis", icon: I("search") },
+                  { value: "trends", label: "Signals", icon: I("line-chart") },
+                ]}
+              />
+              <Card elevation="flat" radius="2xl" padding="md" style={{ width: 180 }}>
+                <div style={{ fontSize: 10, fontWeight: 900, letterSpacing: ".3em", textTransform: "uppercase", color: "var(--text-secondary)" }}>Heart Rate</div>
+                <div style={{ fontFamily: "var(--font-serif)", fontStyle: "italic", fontWeight: 700, fontSize: 38, color: "var(--text-primary)" }}>58</div>
+              </Card>
+            </div>
+          </div>
+        </div>
+      );
+    }
+
+    ReactDOM.createRoot(document.getElementById("root")).render(<Demo />);
+    requestAnimationFrame(() => window.lucide && window.lucide.createIcons());
+    setTimeout(() => window.lucide && window.lucide.createIcons(), 300);
+  </script>
+</body>
+</html>

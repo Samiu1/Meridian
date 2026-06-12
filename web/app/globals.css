@@ -1,0 +1,18 @@
+/* Meridian — global stylesheet.
+   Design tokens vendored from the Japandi design system (see /design-system). */
+@import "./tokens/fonts.css";
+@import "./tokens/colors.css";
+@import "./tokens/typography.css";
+@import "./tokens/spacing.css";
+@import "./tokens/elevation.css";
+@import "./tokens/base.css";
+
+/* Calm entrance: fade + rise, the system's signature reveal. */
+@keyframes m-rise {
+  from { opacity: 0; transform: translateY(20px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.rise { animation: m-rise var(--duration-normal) var(--ease-japandi) both; }
+
+/* Hairline section rule */
+.hairline { border: none; border-top: 1px solid var(--border-hairline); margin: 0; }

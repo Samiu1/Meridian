@@ -1,0 +1,22 @@
+<!-- @dsCard group="Spacing" viewport="700x230" name="Elevation — Soft Neumorphism" subtitle="Dual-shadow soft UI: raised pebble, pressed well, small lift, float" -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<link rel="stylesheet" href="../styles.css" />
+<style>
+  body { margin: 0; padding: 34px 32px; font-family: var(--font-sans); display: flex; align-items: center; justify-content: space-around; gap: 22px; }
+  .item { display: flex; flex-direction: column; align-items: center; gap: 14px; }
+  .box { width: 120px; height: 90px; background: var(--surface-base); border-radius: var(--radius-xl); display: flex; align-items: center; justify-content: center; }
+  .dot { width: 36px; height: 36px; border-radius: 50%; background: var(--clay-500); opacity: .85; }
+  .name { font-size: 10px; font-weight: 900; text-transform: uppercase; letter-spacing: .18em; color: var(--text-primary); }
+  .val { font-family: var(--font-mono); font-size: 9px; color: var(--text-muted); }
+</style>
+</head>
+<body>
+  <div class="item"><div class="box" style="box-shadow: var(--shadow-neu);"></div><div class="name">Flat · Raised</div><div class="val">--shadow-neu</div></div>
+  <div class="item"><div class="box" style="box-shadow: var(--shadow-neu-inset);"><div class="dot"></div></div><div class="name">Inset · Pressed</div><div class="val">--shadow-neu-inset</div></div>
+  <div class="item"><div class="box" style="box-shadow: var(--shadow-neu-sm); width: 96px; height: 70px;"></div><div class="name">Small</div><div class="val">--shadow-neu-sm</div></div>
+  <div class="item"><div class="box" style="box-shadow: var(--shadow-float); border-radius: var(--radius-pill);"></div><div class="name">Float</div><div class="val">--shadow-float</div></div>
+</body>
+</html>

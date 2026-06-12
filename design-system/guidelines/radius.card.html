@@ -1,0 +1,23 @@
+<!-- @dsCard group="Spacing" viewport="700x190" name="Radius — The Pebble Language" subtitle="Very soft, oversized radii give cards their calm pillow form" -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<link rel="stylesheet" href="../styles.css" />
+<style>
+  body { margin: 0; padding: 28px 32px; font-family: var(--font-sans); display: flex; align-items: center; gap: 18px; }
+  .item { display: flex; flex-direction: column; align-items: center; gap: 9px; }
+  .box { width: 78px; height: 78px; background: var(--surface-base); box-shadow: var(--shadow-neu); }
+  .name { font-size: 10px; font-weight: 700; color: var(--text-primary); }
+  .val { font-family: var(--font-mono); font-size: 9px; color: var(--text-muted); }
+</style>
+</head>
+<body>
+  <div class="item"><div class="box" style="border-radius: var(--radius-md);"></div><div class="name">md</div><div class="val">16px</div></div>
+  <div class="item"><div class="box" style="border-radius: var(--radius-lg);"></div><div class="name">lg</div><div class="val">24px</div></div>
+  <div class="item"><div class="box" style="border-radius: var(--radius-xl);"></div><div class="name">xl</div><div class="val">30px</div></div>
+  <div class="item"><div class="box" style="border-radius: var(--radius-2xl);"></div><div class="name">2xl</div><div class="val">40px</div></div>
+  <div class="item"><div class="box" style="border-radius: var(--radius-3xl);"></div><div class="name">3xl</div><div class="val">50px</div></div>
+  <div class="item"><div class="box" style="border-radius: var(--radius-pill); width: 120px;"></div><div class="name">pill</div><div class="val">9999px</div></div>
+</body>
+</html>
