@@ -1,5 +1,9 @@
 # CODING AGENTS: READ THIS FIRST
 
+> [!NOTE]
+> This is a historical handoff file from the Claude Design assistant export.
+> The prototype code has been fully integrated into the main Next.js web application (`web/`) in this repository.
+
 This is a **handoff bundle** from Claude Design (claude.ai/design).
 
 A user mocked up designs in HTML/CSS/JS using an AI design tool, then exported this bundle so a coding agent can implement the designs for real.

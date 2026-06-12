@@ -38,25 +38,25 @@ Next.js 15 (App Router, React 19) front end for the agent. Talks to the Hono
 API over HTTP + SSE (`web/lib/api.ts`, `NEXT_PUBLIC_API_BASE`, default :8787).
 
 - Styled with the **Japandi / soft-neumorphic design system** vendored under
-  `/design-system` (a Claude Design export). Tokens are copied verbatim into
-  `web/app/tokens/*.css` and imported by `web/app/globals.css` — edit tokens
-  there, not the design-system reference copy.
+  `/design-system` (a Claude Design export). Design tokens are consolidated in
+  `web/app/globals.css` using Tailwind CSS v4 `@theme inline` configurations.
 - Components (`web/components/ui/`): `Card` (neumorphic pebble), `Button`
-  (raised→inset press), `Badge`. Production TSX ports of the prototype JSX in
-  `design-system/components` — match visual output, don't copy internals.
+  (raised→inset press), `Badge` (status indicator), `textarea`. Primitives are
+  migrated to **shadcn/ui** and styled using Tailwind v4 custom utilities.
 - Screens: `app/page.tsx` (composer + live SSE feed + recent sessions),
   `app/sessions/[id]/page.tsx` (read-only transcript). The **approval gate**
   surfaces as `ApprovalCard` — a floating pebble that POSTs `/approvals/:id`.
 - Design rules (keep): warm paper ground, clay/taupe/sage palette (never
-  neon/blue/purple), Lora serif italic for display + big numerals, Raleway 900
-  ALL-CAPS eyebrow labels, oversized radii, shadow-only cards (no borders),
-  one calm easing `--ease-japandi`, no emoji in UI.
+  neon/blue/purple), Lora serif italic for display + big numerals, Plus Jakarta Sans
+  for body/UI, uppercase `.eyebrow` labels, oversized radii, shadow-only cards,
+  no emoji in UI.
 
 ## `/design-system`
 
 Read-only reference bundle: `readme.md` (full brand guide), `guidelines/`
 specimen cards, `components/` & `ui_kits/` prototype JSX, `screenshots/`,
-`SOURCE-README.md`. The live tokens are the copies in `web/app/tokens/`.
+`SOURCE-README.md`. The live tokens are consolidated inside `web/app/globals.css`,
+and live UI components are inside `web/components/ui/`.
 
 ## Architecture
 
