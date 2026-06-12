@@ -1,4 +1,4 @@
-# PM Agent
+# Meridian
 
 An agent SaaS for product managers, built on the Claude Agent SDK (`@anthropic-ai/claude-agent-sdk`). It features a minimal core (Read / Write / Search / Act), skill-based extension, transparent JSONL session logging, and human approval on every external write.
 
