@@ -1,9 +1,9 @@
 "use client";
 
 import { useState } from "react";
-import { Badge } from "./ui/badge";
-import { Button } from "./ui/button";
-import { Card, CardContent } from "./ui/card";
+import { Badge } from "./ui/Badge";
+import { Button } from "./ui/Button";
+import { Card, CardContent } from "./ui/Card";
 import { resolveApproval, type ApprovalRequest } from "../lib/api";
 
 export function ApprovalCard({ approval }: { approval: ApprovalRequest }) {

@@ -2,9 +2,9 @@
 
 import { useCallback, useEffect, useRef, useState } from "react";
 import Link from "next/link";
-import { Badge } from "../components/ui/badge";
-import { Button } from "../components/ui/button";
-import { Card, CardContent } from "../components/ui/card";
+import { Badge } from "../components/ui/Badge";
+import { Button } from "../components/ui/Button";
+import { Card, CardContent } from "../components/ui/Card";
 import { Textarea } from "../components/ui/textarea";
 import { ApprovalCard } from "../components/ApprovalCard";
 import { TranscriptLine } from "../components/TranscriptLine";
