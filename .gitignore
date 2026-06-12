@@ -30,3 +30,7 @@ yarn-error.log*
 .claude/
 .vscode/
 *.code-workspace
+
+# Design System Reference
+design-system/
+
