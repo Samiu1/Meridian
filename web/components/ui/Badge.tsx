@@ -1,56 +1,70 @@
-/* Badge — small pill label. "soft" = tinted paper chip; "neu" = raised pill. */
-import type { CSSProperties, ReactNode } from "react";
+import * as React from "react"
+import { cva, type VariantProps } from "class-variance-authority"
+import { Slot } from "radix-ui"
 
-type Tone = "neutral" | "primary" | "sage" | "success" | "warning" | "danger" | "info";
+import { cn } from "@/lib/utils"
 
-const TONES: Record<Tone, { fg: string; bg: string; dot: string }> = {
-  neutral: { fg: "var(--text-secondary)", bg: "var(--paper-100)", dot: "var(--taupe-500)" },
-  primary: { fg: "var(--clay-700)", bg: "var(--clay-100)", dot: "var(--clay-500)" },
-  sage: { fg: "var(--sage-600)", bg: "var(--sage-200)", dot: "var(--sage-500)" },
-  success: { fg: "var(--status-success)", bg: "var(--status-success-soft)", dot: "var(--status-success)" },
-  warning: { fg: "var(--status-warning)", bg: "var(--status-warning-soft)", dot: "var(--status-warning)" },
-  danger: { fg: "var(--status-danger)", bg: "var(--status-danger-soft)", dot: "var(--status-danger)" },
-  info: { fg: "var(--status-info)", bg: "var(--status-info-soft)", dot: "var(--status-info)" },
-};
+const badgeVariants = cva(
+  "inline-flex items-center gap-1.5 rounded-full px-2.5 py-0.5 text-xs font-semibold whitespace-nowrap transition-colors",
+  {
+    variants: {
+      tone: {
+        neutral: "bg-muted text-muted-foreground",
+        primary: "bg-clay-100 text-clay-700",
+        sage: "bg-sage-200 text-sage-600",
+        success: "bg-status-success-soft text-status-success",
+        warning: "bg-status-warning-soft text-status-warning",
+        danger: "bg-status-danger-soft text-status-danger",
+        info: "bg-status-info-soft text-status-info",
+      },
+    },
+    defaultVariants: {
+      tone: "neutral",
+    },
+  }
+)
 
-export function Badge({
-  children,
-  tone = "neutral",
-  look = "soft",
-  dot = false,
-  style,
-}: {
-  children: ReactNode;
-  tone?: Tone;
-  look?: "soft" | "neu";
-  dot?: boolean;
-  style?: CSSProperties;
-}) {
-  const t = TONES[tone];
-  const neu = look === "neu";
-  return (
-    <span
-      style={{
-        display: "inline-flex",
-        alignItems: "center",
-        gap: "8px",
-        padding: neu ? "7px 16px" : "5px 12px",
-        borderRadius: "var(--radius-pill)",
-        background: neu ? "var(--surface-base)" : t.bg,
-        boxShadow: neu ? "var(--shadow-neu-sm)" : "none",
-        color: t.fg,
-        fontFamily: "var(--font-sans)",
-        fontSize: "10px",
-        fontWeight: 900,
-        textTransform: "uppercase",
-        letterSpacing: "0.2em",
-        lineHeight: 1,
-        whiteSpace: "nowrap",
-        ...style,
-      }}
-    >
-      {dot && <span style={{ width: 7, height: 7, borderRadius: "50%", background: t.dot }} />}
-      {children}
-    </span>
-  );
+const DOT_COLORS: Record<string, string> = {
+  neutral: "bg-muted-foreground",
+  primary: "bg-clay-500",
+  sage: "bg-sage-500",
+  success: "bg-status-success",
+  warning: "bg-status-warning",
+  danger: "bg-status-danger",
+  info: "bg-status-info",
 }
+
+function Badge({
+  className,
+  tone = "neutral",
+  dot = false,
+  asChild = false,
+  ...props
+}: React.ComponentProps<"span"> &
+  VariantProps<typeof badgeVariants> & {
+    dot?: boolean
+    asChild?: boolean
+  }) {
+  const Comp = asChild ? Slot.Root : "span"
+  const resolvedTone = tone ?? "neutral"
+
+  return (
+    <Comp
+      data-slot="badge"
+      className={cn(badgeVariants({ tone }), className)}
+      {...props}
+    >
+      {dot && (
+        <span
+          className={cn(
+            "size-1.5 shrink-0 rounded-full",
+            DOT_COLORS[resolvedTone]
+          )}
+        />
+      )}
+      {props.children}
+    </Comp>
+  )
+}
+
+export { Badge, badgeVariants }
