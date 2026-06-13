@@ -4,10 +4,12 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "dev": "tsx watch src/api/server.ts",
-    "start": "tsx src/api/server.ts",
+    "dev": "concurrently --names api,web --prefix-colors cyan,magenta \"node --env-file=.env --import tsx src/api/server.ts\" \"npm --prefix web run dev\"",
+    "dev:api": "node --env-file=.env --import tsx src/api/server.ts",
+    "start": "node --env-file=.env --import tsx src/api/server.ts",
+    "setup": "tsx scripts/setup.ts",
     "typecheck": "tsc --noEmit",
-    "evals": "tsx evals/run-evals.ts"
+    "evals": "node --env-file=.env --import tsx evals/run-evals.ts"
   },
   "dependencies": {
     "@anthropic-ai/claude-agent-sdk": "^0.3.174",
@@ -17,6 +19,7 @@
   },
   "devDependencies": {
     "@types/node": "^22.0.0",
+    "concurrently": "^10.0.3",
     "tsx": "^4.19.0",
     "typescript": "^5.7.0"
   }

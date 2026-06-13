@@ -119,8 +119,10 @@ export async function runAgent(input: RunInput): Promise<{ sessionId: string }> 
     },
   });
 
+  let initialized = false;
   for await (const message of q) {
-    if (message.type === "system" && "session_id" in message) {
+    if (message.type === "system" && "session_id" in message && !initialized) {
+      initialized = true;
       sessionId = message.session_id as string;
       if (skill) {
         await log({ type: "meta", kind: "skill", data: { skill: skill.name } });
