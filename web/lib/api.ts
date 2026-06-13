@@ -60,6 +60,27 @@ export async function resolveApproval(id: string, approved: boolean): Promise<vo
   if (!res.ok) throw new Error(`approval failed: ${res.status}`);
 }
 
+export async function branchSession(id: string): Promise<string> {
+  const res = await fetch(`${API_BASE}/sessions/${id}/branch`, { method: "POST" });
+  if (!res.ok) throw new Error(`branch failed: ${res.status}`);
+  const body = (await res.json()) as { childSessionId: string };
+  return body.childSessionId;
+}
+
+export async function exportSession(
+  id: string,
+  filename?: string,
+): Promise<string> {
+  const res = await fetch(`${API_BASE}/sessions/${id}/export`, {
+    method: "POST",
+    headers: { "content-type": "application/json" },
+    body: JSON.stringify({ filename }),
+  });
+  if (!res.ok) throw new Error(`export failed: ${res.status}`);
+  const body = (await res.json()) as { path: string };
+  return body.path;
+}
+
 /** Start a run and yield parsed SSE events until the stream closes. */
 export async function* startRun(input: {
   prompt: string;

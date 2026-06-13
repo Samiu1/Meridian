@@ -8,6 +8,8 @@ import { serve } from "@hono/node-server";
 import { streamSSE } from "hono/streaming";
 import { Hono } from "hono";
 import { cors } from "hono/cors";
+import { writeFile, mkdir } from "node:fs/promises";
+import path from "node:path";
 import { pendingApprovals, runAgent } from "../agent/run-agent.js";
 import { readSession, branchSession } from "../agent/session-store.js";
 import { listSessionFiles } from "../extensions/session-search.js";
@@ -93,6 +95,36 @@ app.post("/sessions/:id/branch", async (c) => {
   const childId = randomUUID();
   await branchSession(c.req.param("id"), childId);
   return c.json({ childSessionId: childId });
+});
+
+/** Export the last assistant draft from a session as a markdown file. */
+app.post("/sessions/:id/export", async (c) => {
+  const lines = await readSession(c.req.param("id"));
+  if (lines.length === 0) return c.json({ error: "not found" }, 404);
+
+  const assistantLines = lines
+    .filter((l) => l.type === "assistant" && "text" in l)
+    .map((l) => (l as { text: string }).text);
+
+  if (assistantLines.length === 0) {
+    return c.json({ error: "no assistant output to export" }, 400);
+  }
+
+  const body = (await c.req.json<{ filename?: string }>().catch(() => ({}))) as {
+    filename?: string;
+  };
+
+  const draft = assistantLines.at(-1)!;
+  const slug = (body.filename ?? `draft-${c.req.param("id").slice(0, 8)}`).replace(
+    /[^a-zA-Z0-9_-]/g,
+    "-",
+  );
+  const draftsDir = path.resolve(process.cwd(), "drafts");
+  await mkdir(draftsDir, { recursive: true });
+  const filePath = path.join(draftsDir, `${slug}.md`);
+  await writeFile(filePath, draft, "utf8");
+
+  return c.json({ path: `drafts/${slug}.md` });
 });
 
 const port = Number(process.env.PORT ?? 8787);
