@@ -1,6 +1,6 @@
 "use client";
 
-import { useCallback, useEffect, useRef, useState } from "react";
+import { Suspense, useCallback, useEffect, useRef, useState } from "react";
 import { useSearchParams } from "next/navigation";
 import Link from "next/link";
 import { Badge } from "../components/ui/Badge";
@@ -12,6 +12,7 @@ import { TranscriptLine } from "../components/TranscriptLine";
 import { WelcomeCard } from "../components/WelcomeCard";
 import {
   listSessions,
+  listWorkspaces,
   startRun,
   type ApprovalRequest,
   type SessionLine,
@@ -22,7 +23,7 @@ type FeedItem =
   | { kind: "line"; line: SessionLine }
   | { kind: "approval"; approval: ApprovalRequest };
 
-export default function Home() {
+function Home() {
   const searchParams = useSearchParams();
   const resumeId = searchParams.get("resume");
   const resumeContext = searchParams.get("context");
@@ -32,6 +33,17 @@ export default function Home() {
   const [feed, setFeed] = useState<FeedItem[]>([]);
   const [error, setError] = useState<string | null>(null);
   const [sessions, setSessions] = useState<SessionSummary[]>([]);
+  const [workspaces, setWorkspaces] = useState<string[]>([]);
+  const [workspaceId, setWorkspaceId] = useState<string>("demo");
+
+  useEffect(() => {
+    listWorkspaces()
+      .then((ws) => {
+        setWorkspaces(ws);
+        if (ws.length > 0) setWorkspaceId(ws[0]);
+      })
+      .catch(() => setWorkspaces([]));
+  }, []);
   const feedEnd = useRef<HTMLDivElement>(null);
   const resumeHandled = useRef(false);
 
@@ -64,7 +76,7 @@ export default function Home() {
     try {
       for await (const ev of startRun({
         prompt,
-        workspaceId: "demo",
+        workspaceId,
         resumeSessionId: resumeId ?? undefined,
       })) {
         if (ev.event === "line") {
@@ -97,9 +109,27 @@ export default function Home() {
 
       {/* Composer */}
       <section className="animate-rise mt-10">
-        <span className="eyebrow">
-          {resumeId ? "Continue session" : "New session"}
-        </span>
+        <div className="flex items-center justify-between">
+          <span className="eyebrow">
+            {resumeId ? "Continue session" : "New session"}
+          </span>
+          {workspaces.length > 0 && (
+            <label className="flex items-center gap-2 text-sm text-muted-foreground">
+              Workspace
+              <select
+                value={workspaceId}
+                onChange={(e) => setWorkspaceId(e.target.value)}
+                className="rounded-md border border-border bg-background px-2 py-1 text-sm text-foreground"
+              >
+                {workspaces.map((w) => (
+                  <option key={w} value={w}>
+                    {w}
+                  </option>
+                ))}
+              </select>
+            </label>
+          )}
+        </div>
         <Card className="mt-4">
           <CardContent className="space-y-4">
             <h2 className="text-2xl italic">
@@ -196,5 +226,13 @@ export default function Home() {
         )}
       </section>
     </main>
+  );
+}
+
+export default function Page() {
+  return (
+    <Suspense fallback={null}>
+      <Home />
+    </Suspense>
   );
 }
