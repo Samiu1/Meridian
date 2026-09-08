@@ -44,6 +44,13 @@ export async function listSessions(): Promise<SessionSummary[]> {
   return body.sessions;
 }
 
+export async function listWorkspaces(): Promise<string[]> {
+  const res = await fetch(`${API_BASE}/workspaces`);
+  if (!res.ok) throw new Error(`list workspaces failed: ${res.status}`);
+  const body = (await res.json()) as { workspaces: string[] };
+  return body.workspaces;
+}
+
 export async function getSession(id: string): Promise<SessionLine[]> {
   const res = await fetch(`${API_BASE}/sessions/${id}`);
   if (!res.ok) throw new Error(`get session failed: ${res.status}`);
