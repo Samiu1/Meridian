@@ -5,7 +5,7 @@ import { Badge } from "./ui/Badge";
 
 const CAPABILITIES: { label: string; description: string; coming?: boolean }[] = [
   { label: "PRD Drafting", description: "Turn raw inputs into structured PRDs" },
-  { label: "User Stories", description: "Decompose features into acceptance-criteria-backed stories", coming: true },
+  { label: "User Stories", description: "Decompose features into acceptance-criteria-backed stories" },
   { label: "Status Updates", description: "Generate stakeholder updates from tickets and blockers", coming: true },
 ];
 
