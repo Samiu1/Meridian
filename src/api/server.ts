@@ -8,7 +8,8 @@ import { serve } from "@hono/node-server";
 import { streamSSE } from "hono/streaming";
 import { Hono } from "hono";
 import { cors } from "hono/cors";
-import { writeFile, mkdir } from "node:fs/promises";
+import { writeFile, mkdir, readdir } from "node:fs/promises";
+import { existsSync } from "node:fs";
 import path from "node:path";
 import { pendingApprovals, runAgent } from "../agent/run-agent.js";
 import { readSession, branchSession } from "../agent/session-store.js";
@@ -38,6 +39,18 @@ app.get("/sessions", async (c) => {
   );
   sessions.sort((a, b) => (b.lastTs ?? "").localeCompare(a.lastTs ?? ""));
   return c.json({ sessions });
+});
+
+/** List workspace ids (directories under /workspaces containing CONTEXT.md). */
+app.get("/workspaces", async (c) => {
+  const dir = path.resolve(process.cwd(), "workspaces");
+  if (!existsSync(dir)) return c.json({ workspaces: [] });
+  const entries = await readdir(dir, { withFileTypes: true });
+  const workspaces = entries
+    .filter((e) => e.isDirectory() && existsSync(path.join(dir, e.name, "CONTEXT.md")))
+    .map((e) => e.name)
+    .sort();
+  return c.json({ workspaces });
 });
 
 /**
