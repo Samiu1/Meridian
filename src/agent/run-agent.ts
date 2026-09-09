@@ -141,6 +141,35 @@ export async function runAgent(input: RunInput): Promise<{ sessionId: string }> 
           });
         }
       }
+    } else if (message.type === "user") {
+      // Tool results arrive as user-role messages with tool_result blocks.
+      // Persist them so the session log is a complete audit trail.
+      const content = (message.message as { content?: unknown }).content;
+      if (Array.isArray(content)) {
+        for (const block of content) {
+          if (
+            block &&
+            typeof block === "object" &&
+            (block as { type?: string }).type === "tool_result"
+          ) {
+            const b = block as {
+              tool_use_id?: string;
+              is_error?: boolean;
+              content?: unknown;
+            };
+            const raw =
+              typeof b.content === "string"
+                ? b.content
+                : JSON.stringify(b.content ?? "");
+            await log({
+              type: "tool_result",
+              toolUseId: b.tool_use_id ?? "",
+              isError: Boolean(b.is_error),
+              output: raw.slice(0, 8000),
+            });
+          }
+        }
+      }
     } else if (message.type === "result") {
       // Cost attribution: token usage + spend per session.
       await log({

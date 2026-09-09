@@ -3,8 +3,8 @@ node_modules/
 web/node_modules/
 
 # Agent State
-sessions/
-drafts/
+/sessions/
+/drafts/
 
 # Environment Variables
 .env
@@ -36,4 +36,4 @@ design-system/
 
 # Local Project files and workspaces
 CLAUDE.md
-workspaces/
+/workspaces/
